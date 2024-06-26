@@ -5,8 +5,10 @@ const FilterBar = () => {
     <>
       {/* Todo Selection bar */}
       <div className="shadow-xl">
-        <select name="" id="" value={1} className="focus:outline-none">
-          <option value={1}>Filter by Region</option>
+        <select name="" id="" defaultValue={1} className="focus:outline-none">
+          <option value={1} hidden>
+            Filter by Region
+          </option>
           <option value={2}>Africa</option>
           <option value={3}>America</option>
           <option value={4}>Europe</option>

@@ -11,6 +11,15 @@ import CardCountry from "./CardCountry";
 function Home() {
   const [dataCountry, setDataCountry] = useState([]);
 
+  // pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = dataCountry.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(dataCountry.length / recordsPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+
   const handleChange = (e) => {
     if (e.target.value) {
       fetch(`https://restcountries.com/v3.1/region/${e.target.value}`)
@@ -50,6 +59,22 @@ function Home() {
       .then((data) => {
         setDataCountry(data);
       });
+  }
+
+  function prevPage() {
+    if (currentPage !== firstIndex) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
+  function changeCPage(id) {
+    setCurrentPage(id);
+  }
+
+  function nextPage() {
+    if (currentPage !== lastIndex) {
+      setCurrentPage(currentPage + 1);
+    }
   }
 
   useEffect(() => {
@@ -114,6 +139,27 @@ function Home() {
             ))}
           </div>
         </div>
+        {/* Pagination Bar */}
+        {/* <ul className="pagination">
+          <li className="page-item">
+            <a href="" onClick={prevPage}>
+              Prev
+            </a>
+          </li>
+          {numbers.map((n, i) => (
+            <li key={i}>
+              <a href="" onClick={changeCPage}>
+                {" "}
+                {n}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="" onClick={nextPage}>
+              Next
+            </a>
+          </li>
+        </ul> */}
       </div>
     </>
   );

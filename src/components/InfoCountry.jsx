@@ -7,7 +7,6 @@ const InfoCountry = () => {
 
   const [firstData, setfirstData] = useState([]);
   const [detailCountry, setdetailCountry] = useState([]);
-  const [borders, seBorders] = useState();
 
   async function getDetail() {
     const response = await fetch(
@@ -36,9 +35,10 @@ const InfoCountry = () => {
     getAllDetail();
   }, []);
 
-  useEffect(() => {
-    const cca3Data = detailCountry[0]?.borders;
-  }, [detailCountry]);
+  console.log(firstData);
+
+  // const countryCode = firstData?.map((data) => setcountryData(data?.cca3));
+  // console.log(countryData);
 
   return (
     <>
@@ -82,7 +82,12 @@ const InfoCountry = () => {
                 {dcountry?.borders?.map((data, i) => (
                   <div className="space-x-3" key={i}>
                     <button className="border border-3 border-black px-5">
-                      {data}
+                      {firstData?.map((datas) => {
+                        const isFound = datas?.cca3.includes(data);
+                        if (isFound) {
+                          return datas?.name?.common;
+                        }
+                      })}
                     </button>
                   </div>
                 ))}

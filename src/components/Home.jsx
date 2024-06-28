@@ -10,14 +10,20 @@ import CardCountry from "./CardCountry";
 
 function Home() {
   const [dataCountry, setDataCountry] = useState([]);
+  const [searchKey, setsearchKey] = useState("");
+  const [firstData, setfirstData] = useState([]);
 
   // pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 5;
+  const recordsPerPage = 25;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = dataCountry.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(dataCountry.length / recordsPerPage);
+  const records = searchKey
+    ? dataCountry.slice(firstIndex, lastIndex)
+    : firstData.slice(firstIndex, lastIndex);
+  const npage = searchKey
+    ? Math.ceil(dataCountry.length / recordsPerPage)
+    : Math.ceil(firstData.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   const handleChange = (e) => {
@@ -33,20 +39,21 @@ function Home() {
   };
 
   const handleSearch = (e) => {
+    setsearchKey(e.target.value);
     if (e.target.value) {
-      fetch(`https://restcountries.com/v3.1/name/${e.target.value}`)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(res);
-        })
-        .then((data) => {
-          setDataCountry(data);
-        });
-    } else {
-      syncAllCountry();
+      const searchData = firstData.filter((data) => {
+        const dataName = data?.name?.common.toLowerCase();
+
+        return dataName.includes(e.target.value.toLowerCase());
+      });
+      setCurrentPage(1);
+
+      setDataCountry(searchData);
     }
+  };
+
+  const handleChangePage = (id) => {
+    setCurrentPage(id);
   };
 
   function syncAllCountry() {
@@ -57,25 +64,21 @@ function Home() {
         return res.json();
       })
       .then((data) => {
-        setDataCountry(data);
+        setfirstData(data);
       });
   }
 
-  function prevPage() {
+  const prevPage = () => {
     if (currentPage !== firstIndex) {
       setCurrentPage(currentPage - 1);
     }
-  }
+  };
 
-  function changeCPage(id) {
-    setCurrentPage(id);
-  }
-
-  function nextPage() {
+  const nextPage = () => {
     if (currentPage !== lastIndex) {
       setCurrentPage(currentPage + 1);
     }
-  }
+  };
 
   useEffect(() => {
     syncAllCountry();
@@ -84,7 +87,7 @@ function Home() {
   return (
     <>
       <div className="head">
-        <div className="flex flex-row justify-between p-4 px-20 border-1 shadow-xl">
+        <div className="flex flex-row justify-between p-4 px-20 border-1 shadow-xl dark:bg-black">
           <div className="font-bold">
             <p>Where in the world</p>
           </div>
@@ -106,6 +109,7 @@ function Home() {
               />
               <input
                 type="text"
+                value={searchKey}
                 className="focus:outline-none"
                 onChange={handleSearch}
               />
@@ -134,32 +138,31 @@ function Home() {
         {/* Country List Component */}
         <div className="pt-10 px-20">
           <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
-            {dataCountry.map((countries, i) => (
+            {records.map((countries, i) => (
               <CardCountry key={i} countries={countries} />
             ))}
           </div>
         </div>
         {/* Pagination Bar */}
-        {/* <ul className="pagination">
-          <li className="page-item">
-            <a href="" onClick={prevPage}>
-              Prev
-            </a>
-          </li>
-          {numbers.map((n, i) => (
-            <li key={i}>
-              <a href="" onClick={changeCPage}>
-                {" "}
-                {n}
-              </a>
+        <div className="flex justify-center pt-10 pb-10">
+          <ul className="pagination inline-flex space-x-5">
+            <li className="page-item">
+              <button href="" onClick={() => prevPage()}>
+                Prev
+              </button>
             </li>
-          ))}
-          <li>
-            <a href="" onClick={nextPage}>
-              Next
-            </a>
-          </li>
-        </ul> */}
+            {numbers.map((n, i) => (
+              <li key={i}>
+                <button onClick={() => handleChangePage(n)}> {n}</button>
+              </li>
+            ))}
+            <li>
+              <button href="" onClick={() => nextPage()}>
+                Next
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );

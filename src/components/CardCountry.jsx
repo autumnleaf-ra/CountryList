@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import InfoCountry from "./InfoCountry";
+import { Link } from "react-router-dom";
 
 const CardCountry = ({ countries }) => {
   // getting data
@@ -24,9 +24,11 @@ const CardCountry = ({ countries }) => {
               className="h-[150px] w-full rounded-t-md cursor-pointer"
             />
           </div>
-          <p className="font-bold ml-4 mt-1 pb-2 cursor-pointer">
-            {nameCountry}
-          </p>
+          <Link to={{ pathname: `/${encodeURIComponent(nameCountry)}` }}>
+            <p className="font-bold ml-4 mt-1 pb-2 cursor-pointer">
+              {nameCountry}
+            </p>
+          </Link>
           <div className="text-sm ml-4 pb-3">
             <p>Population : {populationCommas}</p>
             <p>Region : {regionCountry}</p>

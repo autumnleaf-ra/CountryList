@@ -29,10 +29,19 @@ const CardCountry = ({ countries }) => {
               {nameCountry}
             </p>
           </Link>
-          <div className="text-sm ml-4 pb-3">
-            <p>Population : {populationCommas}</p>
-            <p>Region : {regionCountry}</p>
-            <p>Capital : {capitalCountry}</p>
+          <div className="text-sm ml-4 pb-12">
+            <p>
+              <strong>Population: </strong>
+              {populationCommas}
+            </p>
+            <p>
+              <strong>Region: </strong>
+              {regionCountry}
+            </p>
+            <p>
+              <strong>Capital: </strong>
+              {capitalCountry}
+            </p>
           </div>
         </div>
       </div>

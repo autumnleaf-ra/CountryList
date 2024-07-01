@@ -46,59 +46,98 @@ const InfoCountry = () => {
       <div className="pt-10 px-20 h-screen dark:bg-dark-theme-2 dark:text-white">
         <div className="pb-20">
           <Link to={"/"}>
-            <button>back</button>
+            <button>
+              <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 32 32"
+              >
+                <path
+                  d="M1 16l15 15v-9h16v-12h-16v-9z"
+                  className="dark:fill-white"
+                ></path>
+              </svg>
+            </button>
+            <span className="ml-1">Back</span>
           </Link>
         </div>
         {detailCountry.map((dcountry, i) => (
-          <div className="flex flex-row space-x-40" key={i}>
-            <img
-              src={dcountry?.flags?.png}
-              alt="country-flags"
-              className="shadow-2xl h-[200px]"
-            />
-            <div className="flex-col space-y-5">
-              <div>
-                <p>{dcountry?.name?.common}</p>
+          <div
+            className="sm:flex flex-col md:flex-col lg:flex-row justify-evenly"
+            key={i}
+          >
+            <div>
+              <img
+                src={dcountry?.flags?.png}
+                alt="country-flags"
+                className="shadow-2xl h-[200px] w-full"
+              />
+            </div>
+            <div className="flex-col space-y-5 sm:pt-10 md:pt-10 lg:pt-0">
+              <div className="">
+                <p className="font-bold">{dcountry?.name?.common}</p>
               </div>
-              <div className="flex flex-row space-x-10">
+              <div className="sm:flex flex-col md:flex-row">
                 <div className="flex-col">
                   <p>
-                    Native name:{" "}
+                    <strong>Native name: </strong>
                     {Object.values(dcountry?.name?.nativeName)[0]?.common}
                   </p>
-                  <p>Population: {dcountry?.population}</p>
-                  <p>Region: {dcountry?.region}</p>
-                  <p>Sub Region: {dcountry?.subregion}</p>
-                  <p>Capital: {dcountry?.capital}</p>
+                  <p>
+                    <strong>Population:</strong> {dcountry?.population}
+                  </p>
+                  <p>
+                    <strong>Region: </strong>
+                    {dcountry?.region}
+                  </p>
+                  <p>
+                    <strong>Sub Region:</strong>
+                    {dcountry?.subregion}
+                  </p>
+                  <p>
+                    <strong>Capital: </strong>
+                    {dcountry?.capital}
+                  </p>
                 </div>
                 <div className="flex-col">
-                  <div>Top Level Domain: {dcountry?.tld}</div>
-                  <div>
-                    Currencies: {Object.values(dcountry?.currencies)[0]?.name}
-                  </div>
-                  <div>
-                    Languages: {Object.values(dcountry?.languages).toString()}
-                  </div>
+                  <p>
+                    <strong>Top Level Domain: </strong>
+                    {dcountry?.tld}
+                  </p>
+                  <p>
+                    <strong>Currencies: </strong>
+                    {Object.values(dcountry?.currencies)[0]?.name}
+                  </p>
+                  <p>
+                    <strong>Languages: </strong>
+                    {Object.values(dcountry?.languages).toString()}
+                  </p>
                 </div>
               </div>
-              <div className="flex flex-row space-x-2">
-                <p>Border Countries: </p>
-                {dcountry?.borders?.map((data, i) => (
-                  <div className="space-x-3" key={i}>
-                    <a className="border border-3 border-black px-5">
-                      {firstData?.map((datas) => {
-                        const isFound = datas?.cca3.includes(data);
-                        if (isFound) {
-                          return (
-                            <a href={`${datas?.name?.common}`}>
-                              {datas?.name?.common}
-                            </a>
-                          );
-                        }
-                      })}
-                    </a>
-                  </div>
-                ))}
+              <div className="flex-col space-y-2">
+                <p>
+                  <strong>Border Countries:</strong>
+                </p>
+                <div className="sm:flex flex-col md:flex-row text-[10px]">
+                  {dcountry?.borders?.map((data, i) => (
+                    <div className="space-x-3" key={i}>
+                      <a className="border border-3 border-black px-5 dark:border-dark-theme">
+                        {firstData?.map((datas) => {
+                          const isFound = datas?.cca3.includes(data);
+                          if (isFound) {
+                            return (
+                              <a href={`${datas?.name?.common}`}>
+                                {datas?.name?.common}
+                              </a>
+                            );
+                          }
+                        })}
+                      </a>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

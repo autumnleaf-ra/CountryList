@@ -35,7 +35,7 @@ const InfoCountry = () => {
     getAllDetail();
   }, []);
 
-  console.log(firstData);
+  // console.log(firstData);
 
   // const countryCode = firstData?.map((data) => setcountryData(data?.cca3));
   // console.log(countryData);
@@ -72,7 +72,7 @@ const InfoCountry = () => {
               <img
                 src={dcountry?.flags?.png}
                 alt="country-flags"
-                className="shadow-2xl h-[200px] w-full"
+                className="shadow-2xl h-[200px] w-[400px]"
               />
             </div>
             <div className="flex-col space-y-5 sm:pt-10 md:pt-10 lg:pt-0">

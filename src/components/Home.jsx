@@ -66,12 +66,14 @@ function Home() {
   }
 
   const prevPage = () => {
+    if (currentPage == 1 && firstIndex == 0) return 0;
     if (currentPage !== firstIndex) {
       setCurrentPage(currentPage - 1);
     }
   };
 
   const nextPage = () => {
+    if (lastIndex === lastIndex) return 0;
     if (currentPage !== lastIndex) {
       setCurrentPage(currentPage + 1);
     }
@@ -139,19 +141,21 @@ function Home() {
       <div className="flex justify-center pt-10 pb-10 dark:bg-dark-theme-2 dark:text-white">
         <ul className="pagination inline-flex space-x-5 ">
           <li className="page-item">
-            <button href="" onClick={() => prevPage()}>
-              Prev
-            </button>
+            <button onClick={() => prevPage()}>Prev</button>
           </li>
           {numbers.map((n, i) => (
             <li key={i}>
-              <button onClick={() => handleChangePage(n)}> {n}</button>
+              <button
+                onClick={() => handleChangePage(n)}
+                className="focus:ring focus:ring-blue-500"
+              >
+                {" "}
+                {n}
+              </button>
             </li>
           ))}
           <li>
-            <button href="" onClick={() => nextPage()}>
-              Next
-            </button>
+            <button onClick={() => nextPage()}>Next</button>
           </li>
         </ul>
       </div>

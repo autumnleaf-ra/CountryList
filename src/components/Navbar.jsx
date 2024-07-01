@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 // Image
-import moon from "../assets/moon.svg";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -26,15 +25,11 @@ const Navbar = () => {
       </div>
       <div className="inline-flex cursor-pointer" onClick={() => toggleDark()}>
         <svg
-          enable-background="new 0 0 512 512"
           height="25px"
           id="Layer_1"
           version="1.1"
           viewBox="0 0 512 512"
           width="25px"
-          xml:space="preserve"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
         >
           <path
             className="dark:fill-white"

@@ -51,13 +51,11 @@ const InfoCountry = () => {
         </div>
         {detailCountry.map((dcountry, i) => (
           <div className="flex flex-row space-x-40" key={i}>
-            <div>
-              <img
-                src={dcountry?.flags?.png}
-                alt="country-flags"
-                className="shadow-2xl h-[200px] w-full"
-              />
-            </div>
+            <img
+              src={dcountry?.flags?.png}
+              alt="country-flags"
+              className="shadow-2xl h-[200px]"
+            />
             <div className="flex-col space-y-5">
               <div>
                 <p>{dcountry?.name?.common}</p>
@@ -87,14 +85,18 @@ const InfoCountry = () => {
                 <p>Border Countries: </p>
                 {dcountry?.borders?.map((data, i) => (
                   <div className="space-x-3" key={i}>
-                    <button className="border border-3 border-black px-5">
+                    <a className="border border-3 border-black px-5">
                       {firstData?.map((datas) => {
                         const isFound = datas?.cca3.includes(data);
                         if (isFound) {
-                          return <a href="">{datas?.name?.common}</a>;
+                          return (
+                            <a href={`${datas?.name?.common}`}>
+                              {datas?.name?.common}
+                            </a>
+                          );
                         }
                       })}
-                    </button>
+                    </a>
                   </div>
                 ))}
               </div>

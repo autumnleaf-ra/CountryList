@@ -138,8 +138,8 @@ function Home() {
         </div>
       </div>
       {/* Pagination Bar */}
-      <div className="flex justify-center pt-10 pb-10">
-        <ul className="pagination inline-flex space-x-5">
+      <div className="flex justify-center pt-10 pb-10 dark:bg-dark-theme-2 dark:text-white">
+        <ul className="pagination inline-flex space-x-5 ">
           <li className="page-item">
             <button href="" onClick={() => prevPage()}>
               Prev

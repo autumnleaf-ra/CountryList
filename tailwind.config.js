@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "dark-theme": "hsl(211, 21%, 22%)",
+        "dark-theme-2": "hsl(207, 25%, 17%)",
       },
     },
   },

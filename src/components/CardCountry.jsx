@@ -15,7 +15,7 @@ const CardCountry = ({ countries }) => {
 
   return (
     <>
-      <div className="rounded-t-md">
+      <div className="rounded-t-md dark:text-white">
         <div className="flex flex-col shadow-xl">
           <div>
             <img
